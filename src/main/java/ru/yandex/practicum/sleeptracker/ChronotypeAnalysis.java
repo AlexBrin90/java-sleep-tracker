@@ -5,13 +5,17 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-public class ChronotypeAnalysis implements SleepAnalysis {
+public class ChronotypeAnalysis implements SleepAnalysis<Chronotype> {
 
     private static final LocalTime NIGHT_WINDOW_START = LocalTime.of(0, 0);
-    private static final LocalTime NIGHT_WINDOW_END = LocalTime.of(8, 0);
+    private static final LocalTime NIGHT_WINDOW_END = LocalTime.of(6, 0);
+    private static final LocalTime NIGHT_WINDOW_START_FOR_OWL = LocalTime.of(23, 0);
+    private static final LocalTime NIGHT_WINDOW_END_FOR_OWL = LocalTime.of(9, 0);
+    private static final LocalTime NIGHT_WINDOW_START_FOR_LARK = LocalTime.of(22, 0);
+    private static final LocalTime NIGHT_WINDOW_END_FOR_LARK = LocalTime.of(7, 0);
 
     @Override
-    public SleepAnalysisResult analyze(List<SleepingSession> sessions) {
+    public SleepAnalysisResult<Chronotype> analyze(List<SleepingSession> sessions) {
         long owl = 0;
         long lark = 0;
         long dove = 0;
@@ -39,7 +43,7 @@ public class ChronotypeAnalysis implements SleepAnalysis {
             result = Chronotype.LARK;
         }
 
-        return new SleepAnalysisResult("Хронотип", result);
+        return new SleepAnalysisResult<>("Хронотип", result);
     }
 
     private boolean isNight(SleepingSession s) {
@@ -50,13 +54,13 @@ public class ChronotypeAnalysis implements SleepAnalysis {
     }
 
     private boolean isOwl(SleepingSession s) {
-        return s.getStart().toLocalTime().isAfter(LocalTime.of(23, 0))
-                && s.getEnd().toLocalTime().isAfter(LocalTime.of(9, 0));
+        return s.getStart().toLocalTime().isAfter(NIGHT_WINDOW_START_FOR_OWL)
+                && s.getEnd().toLocalTime().isAfter(NIGHT_WINDOW_END_FOR_OWL);
     }
 
     private boolean isLark(SleepingSession s) {
-        return s.getStart().toLocalTime().isBefore(LocalTime.of(22, 0))
-                && s.getEnd().toLocalTime().isBefore(LocalTime.of(7, 0));
+        return s.getStart().toLocalTime().isBefore(NIGHT_WINDOW_START_FOR_LARK)
+                && s.getEnd().toLocalTime().isBefore(NIGHT_WINDOW_END_FOR_LARK);
     }
 
 }

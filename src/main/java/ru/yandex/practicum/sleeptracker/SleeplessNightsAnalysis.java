@@ -6,15 +6,15 @@ import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
 
-public class SleeplessNightsAnalysis implements SleepAnalysis {
+public class SleeplessNightsAnalysis implements SleepAnalysis<Long> {
 
     private static final LocalTime NIGHT_START = LocalTime.of(0, 0);
     private static final LocalTime NIGHT_END = LocalTime.of(6, 0);
 
     @Override
-    public SleepAnalysisResult analyze(List<SleepingSession> sessions) {
+    public SleepAnalysisResult<Long> analyze(List<SleepingSession> sessions) {
         if (sessions.isEmpty()) {
-            return new SleepAnalysisResult("Бессонные ночи", 0L);
+            return new SleepAnalysisResult<>("Бессонные ночи", 0L);
         }
 
         LocalDate firstNight = getNightDate(sessions.stream()
@@ -31,12 +31,12 @@ public class SleeplessNightsAnalysis implements SleepAnalysis {
                     LocalDateTime windowStart = LocalDateTime.of(nightDate, NIGHT_START);
                     LocalDateTime windowEnd = LocalDateTime.of(nightDate, NIGHT_END);
 
-                    return !sessions.stream()
-                            .anyMatch(s -> intersects(s.getStart(), s.getEnd(), windowStart, windowEnd));
+                    return sessions.stream()
+                            .noneMatch(s -> intersects(s.getStart(), s.getEnd(), windowStart, windowEnd));
                 })
                 .count();
 
-        return new SleepAnalysisResult("Бессонные ночи", sleepless);
+        return new SleepAnalysisResult<>("Бессонные ночи", sleepless);
     }
 
     private LocalDate getNightDate(LocalDateTime dateTime) {

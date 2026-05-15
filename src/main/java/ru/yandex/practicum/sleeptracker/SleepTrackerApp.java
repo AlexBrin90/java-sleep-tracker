@@ -7,14 +7,23 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Scanner;
 
 public class SleepTrackerApp {
-    private static final Path LOG_FILE_PATH = Paths.get("src", "main", "resources", "sleep_log.txt");
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
 
     public static void main(String[] args) throws IOException {
+        System.out.print("Введите путь до файла: ");
+        String pathToFile = new Scanner(System.in).nextLine().trim();
 
-        List<SleepingSession> sessions = Files.lines(LOG_FILE_PATH)
+        if (pathToFile.isEmpty()) {
+            System.out.println("Путь пуст");
+            return;
+        }
+
+        Path path = Path.of(pathToFile);
+
+        List<SleepingSession> sessions = Files.lines(path)
                 .filter(line -> !line.isBlank())
                 .map(SleepTrackerApp::parse)
                 .toList();

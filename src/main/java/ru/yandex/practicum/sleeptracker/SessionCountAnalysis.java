@@ -2,11 +2,11 @@ package ru.yandex.practicum.sleeptracker;
 
 import java.util.List;
 
-public class SessionCountAnalysis implements SleepAnalysis {
+public class SessionCountAnalysis implements SleepAnalysis<Integer> {
 
     @Override
-    public SleepAnalysisResult analyze(List<SleepingSession> sessions) {
-        return new SleepAnalysisResult(
+    public SleepAnalysisResult<Integer> analyze(List<SleepingSession> sessions) {
+        return new SleepAnalysisResult<>(
                 "Количество сессий",
                 sessions.size()
         );

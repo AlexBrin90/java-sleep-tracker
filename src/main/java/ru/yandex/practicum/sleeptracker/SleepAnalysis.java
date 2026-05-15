@@ -2,6 +2,7 @@ package ru.yandex.practicum.sleeptracker;
 
 import java.util.List;
 
-public interface SleepAnalysis {
-    SleepAnalysisResult analyze(List<SleepingSession> sessions);
+@FunctionalInterface
+public interface SleepAnalysis<T> {
+    SleepAnalysisResult<T> analyze(List<SleepingSession> sessions);
 }
