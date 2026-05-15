@@ -26,8 +26,8 @@ public class ChronotypeAnalysis implements SleepAnalysis {
 
         Chronotype result = Chronotype.DOVE;
 
-        if (owl > lark && owl > dove) result = Chronotype.OWL;
-        else if (lark > owl && lark > dove) result = Chronotype.LARK;
+        if (owl > lark && owl > dove) { result = Chronotype.OWL; }
+        else if (lark > owl && lark > dove) { result = Chronotype.LARK; }
 
         return new SleepAnalysisResult("Хронотип", result);
     }
