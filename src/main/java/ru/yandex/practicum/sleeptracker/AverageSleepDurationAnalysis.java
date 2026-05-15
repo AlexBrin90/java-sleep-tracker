@@ -11,7 +11,7 @@ public class AverageSleepDurationAnalysis implements SleepAnalysis<Long> {
                 .map(SleepingSession::durationMinutes)
                 .reduce(0L, Long::sum);
 
-        long avg= (long) sessions.stream()
+        long avg = (long) sessions.stream()
                 .map(SleepingSession::durationMinutes)
                 .mapToLong(Long::longValue)
                 .average()
