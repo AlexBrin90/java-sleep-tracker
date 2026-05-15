@@ -9,19 +9,25 @@ public class SleepingSession {
     private final LocalDateTime end;
     private final SleepQuality quality;
 
-    public SleepingSession(LocalDateTime start,
-                           LocalDateTime end,
-                           SleepQuality quality) {
+    public SleepingSession(LocalDateTime start, LocalDateTime end, SleepQuality quality) {
         this.start = start;
         this.end = end;
         this.quality = quality;
     }
 
-    public LocalDateTime getStart() { return start; }
+    public LocalDateTime getStart() {
+        return start;
+    }
 
-    public LocalDateTime getEnd() { return end; }
+    public LocalDateTime getEnd() {
+        return end;
+    }
 
-    public SleepQuality getQuality() { return quality; }
+    public SleepQuality getQuality() {
+        return quality;
+    }
 
-    public long durationMinutes() { return Duration.between(start, end).toMinutes(); }
+    public long durationMinutes() {
+        return Duration.between(start, end).toMinutes();
+    }
 }

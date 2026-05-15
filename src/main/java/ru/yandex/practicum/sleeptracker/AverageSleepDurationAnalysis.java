@@ -13,8 +13,11 @@ public class AverageSleepDurationAnalysis implements SleepAnalysis {
 
         long avg;
 
-        if (sessions.isEmpty()) { avg = 0; }
-        else { avg = sum / sessions.size(); }
+        if (sessions.isEmpty()) {
+            avg = 0;
+        } else {
+            avg = sum / sessions.size();
+        }
 
         return new SleepAnalysisResult("Средняя длительность", avg);
     }

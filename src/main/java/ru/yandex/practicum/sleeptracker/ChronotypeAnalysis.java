@@ -17,17 +17,27 @@ public class ChronotypeAnalysis implements SleepAnalysis {
         long dove = 0;
 
         for (var s : sessions) {
-            if (!isNight(s)) { continue; };
 
-            if (isOwl(s)) { owl++; }
-            else if (isLark(s)) { lark++; }
-            else { dove++; }
+            if (!isNight(s)) {
+                continue;
+            };
+
+            if (isOwl(s)) {
+                owl++;
+            } else if (isLark(s)) {
+                lark++;
+            } else {
+                dove++;
+            }
         }
 
         Chronotype result = Chronotype.DOVE;
 
-        if (owl > lark && owl > dove) { result = Chronotype.OWL; }
-        else if (lark > owl && lark > dove) { result = Chronotype.LARK; }
+        if (owl > lark && owl > dove) {
+            result = Chronotype.OWL;
+        } else if (lark > owl && lark > dove) {
+            result = Chronotype.LARK;
+        }
 
         return new SleepAnalysisResult("Хронотип", result);
     }
