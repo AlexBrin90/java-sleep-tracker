@@ -20,7 +20,7 @@ public class ChronotypeAnalysis implements SleepAnalysis {
 
             if (!isNight(s)) {
                 continue;
-            };
+            }
 
             if (isOwl(s)) {
                 owl++;
