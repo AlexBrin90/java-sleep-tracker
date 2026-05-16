@@ -6,21 +6,23 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Scanner;
 
 public class SleepTrackerApp {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
 
     public static void main(String[] args) throws IOException {
-        System.out.print("Введите путь до файла: ");
-        String pathToFile = new Scanner(System.in).nextLine().trim();
-
-        if (pathToFile.isEmpty()) {
-            System.out.println("Путь пуст");
+        if (args.length == 0) {
+            System.out.println("Укажите путь к файлу с логом сна в аргументах запуска.");
             return;
         }
 
+        String pathToFile = args[0].trim();
         Path path = Path.of(pathToFile);
+
+        if (!Files.exists(path)) {
+            System.out.println("Файл не найден по пути: " + path.toAbsolutePath());
+            return;
+        }
 
         List<SleepingSession> sessions = Files.lines(path)
                 .filter(line -> !line.isBlank())
